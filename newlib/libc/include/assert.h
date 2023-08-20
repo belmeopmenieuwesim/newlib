@@ -38,8 +38,13 @@ extern "C" {
 
 void __assert (const char *, int, const char *)
 	    _ATTRIBUTE ((__noreturn__));
+
+#ifdef NDEBUG
+#define __assert_func(file, line, unused1, unused2) ((void)0)
+#else
 void __assert_func (const char *, int, const char *, const char *)
-	    _ATTRIBUTE ((__noreturn__));
+_ATTRIBUTE ((__noreturn__));
+#endif
 
 #if __STDC_VERSION__ >= 201112L && !defined __cplusplus
 # define static_assert _Static_assert
